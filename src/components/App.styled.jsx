@@ -4,7 +4,7 @@ export const Title = styled.h2`
   text-transform: uppercase;
 `;
 
-export const Phonebook = styled.div`
+export const PhoneBook = styled.div`
   width: 400px;
   padding: 15px;
   margin: 50px auto;

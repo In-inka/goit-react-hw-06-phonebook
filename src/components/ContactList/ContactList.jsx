@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
 import { List, Item, Btn, Contact } from './ContactList.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact, getContacts } from 'redux/ContactSlice';
+import { getFilter } from 'redux/FilterSlice';
 
-const ContactList = ({ contacts, filter, onDeleteContact }) => {
+const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
   const contactItem = () =>
     filter
       ? contacts.filter(({ name }) => name.toLowerCase().includes(filter))
@@ -11,9 +17,11 @@ const ContactList = ({ contacts, filter, onDeleteContact }) => {
       {contactItem().map(({ id, name, number }) => (
         <Item key={id}>
           <Contact> {`${name}: ${number}`}</Contact>
-          <Btn type="button" onClick={() => onDeleteContact(id)}>
-            Delete
-          </Btn>
+          {
+            <Btn type="button" onClick={() => dispatch(deleteContact(id))}>
+              Delete
+            </Btn>
+          }
         </Item>
       ))}
     </List>
@@ -23,11 +31,11 @@ const ContactList = ({ contacts, filter, onDeleteContact }) => {
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
     })
-  ).isRequired,
+  ),
   filter: PropTypes.string,
   onDeleteContact: PropTypes.func,
 };
