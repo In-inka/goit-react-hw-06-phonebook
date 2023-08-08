@@ -37,6 +37,6 @@ ContactList.propTypes = {
     })
   ),
   filter: PropTypes.string,
-  onDeleteContact: PropTypes.func,
+  deleteContact: PropTypes.func,
 };
 export default ContactList;
